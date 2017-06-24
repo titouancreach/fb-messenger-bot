@@ -21,10 +21,10 @@ def verify():
 
 
 @app.route('/', methods=['POST'])
+def webhook():
     """
     Callback called when someone do a POST request on /.
     """
-def webhook():
     data = request.get_json()
     log(data)
 
