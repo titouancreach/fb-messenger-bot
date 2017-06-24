@@ -23,6 +23,9 @@ class FBMessagingEvent():
             :param msg Message to send back.
         """
 
+        print('TYPE')
+        print(self.type)
+
         if self.type != 'message':
             return
 
