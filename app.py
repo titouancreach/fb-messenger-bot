@@ -7,6 +7,8 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
+print(sys.version_info[0])
+
 
 @app.route('/', methods=['GET'])
 def verify():
