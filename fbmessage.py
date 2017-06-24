@@ -10,11 +10,11 @@ class FBMessagingEvent():
     """
 
     def __init__(self, rawevent):
-        if rawevent.get('message') and rawevent['message'].get('text'):
+        if rawevent.get('message'):
             self.type = 'message'
             self.sender_id = rawevent['sender']['id']
             self.recipient_id = rawevent['recipient']['id']
-            self.msgtxt = rawevent['message']['text']
+            self.msgtxt = rawevent['message'].get('text', '')
 
 
     def respond(self, msg):
@@ -22,9 +22,6 @@ class FBMessagingEvent():
         Respond to the sender.
             :param msg Message to send back.
         """
-
-        print('TYPE')
-        print(self.type)
 
         if not self.sender_id:
             return
