@@ -10,7 +10,7 @@ class FBMessagingEvent():
     """
 
     def __init__(self, rawevent):
-        if rawevent.get('message'):
+        if rawevent.get('message') and rawevent['message'].get('text'):
             self.type = 'message'
             self.sender_id = rawevent['sender']['id']
             self.recipient_id = rawevent['recipient']['id']
