@@ -26,7 +26,7 @@ class FBMessagingEvent():
         print('TYPE')
         print(self.type)
 
-        if self.type != 'message':
+        if not self.sender_id:
             return
 
         params = {
