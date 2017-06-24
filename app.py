@@ -26,7 +26,8 @@ def webhook():
     Callback called when someone do a POST request on /.
     """
     data = request.get_json()
-    log(data)
+
+    print(data)
 
     if data['object'] == 'page':
         for entry in data['entry']:
