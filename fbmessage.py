@@ -1,7 +1,7 @@
 import requests
 
 
-class FBMessagingEvent(Object):
+class FBMessagingEvent():
     """
     Parse facebook messaging event and add posibilities to respond to the sender
         :param rawevent The event sent by facebook webbhook.
