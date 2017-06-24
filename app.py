@@ -1,25 +1,29 @@
-import os
-import sys
-import json
-
-import requests
-
 from fbmessage import FBMessagingEvent
-
 from flask import Flask, request
+
+import json
+import os
+import requests
+import sys
 
 app = Flask(__name__)
 
-
 @app.route('/', methods=['GET'])
 def verify():
+    """
+    Callback called when someone do a GET request on /.
+    """
     if request.args.get('hub.mode') == 'subscribe' and request.args.get('hub.challenge'):
         if not request.args.get('hub.verify_token') == os.environ['VERIFY_TOKEN']:
             return 'Verification token mismatch', 403
         return request.args['hub.challenge'], 200
     return 'Only facebook request are working', 400
 
+
 @app.route('/', methods=['POST'])
+    """
+    Callback called when someone do a POST request on /.
+    """
 def webhook():
     data = request.get_json()
     log(data)
@@ -29,41 +33,9 @@ def webhook():
             fbevents = [FBMessagingEvent(rawevent) for rawevent in entry['messaging']]
 
             for ev in fbevents:
-                ev.respond('MES COUILLES SUR TON NEZ')
+                ev.respond('Bonjour numéro: {} :)'.format(str(ev.sender_id)))
 
     return 'ok', 200
-
-
-def send_message(recipient_id, message_text):
-    log('sending message to {recipient}: {text}'.format(recipient=recipient_id, text=message_text))
-
-    params = {
-        'access_token': os.environ['PAGE_ACCESS_TOKEN']
-    }
-    headers = {
-        'Content-Type': 'application/json'
-    }
-    data = json.dumps({
-        'recipient': {
-            'id': recipient_id
-        },
-        'message': {
-            'text': message_text
-        }
-    })
-
-    print('DATAHERE')
-    print(data)
-
-    r = requests.post('https://graph.facebook.com/v2.6/me/messages', params=params, headers=headers, data=data)
-    if r.status_code != 200:
-        log(r.status_code)
-        log(r.text)
-
-
-def log(message):  # simple wrapper for logging to stdout on heroku
-    print(str(message))
-    sys.stdout.flush()
 
 
 if __name__ == '__main__':
