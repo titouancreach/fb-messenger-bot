@@ -13,7 +13,7 @@ class FBMessagingEvent():
         if rawevent.get('message'):
             self.type = 'message'
             self.sender_id = rawevent['sender']['id']
-            self.recipiend_id = rawevent['recipient']['id']
+            self.recipient_id = rawevent['recipient']['id']
             self.msgtxt = rawevent['message']['text']
 
 
@@ -35,7 +35,7 @@ class FBMessagingEvent():
 
         data = json.dumps({
             'recipient': {
-                'id': self.recipiend_id
+                'id': self.recipient_id
             },
             'message': {
                 'text': msg

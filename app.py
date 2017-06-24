@@ -51,6 +51,10 @@ def send_message(recipient_id, message_text):
             'text': message_text
         }
     })
+
+    print('DATAHERE')
+    print(data)
+
     r = requests.post('https://graph.facebook.com/v2.6/me/messages', params=params, headers=headers, data=data)
     if r.status_code != 200:
         log(r.status_code)
