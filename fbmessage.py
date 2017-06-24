@@ -35,7 +35,7 @@ class FBMessagingEvent():
 
         data = json.dumps({
             'recipient': {
-                'id': self.recipient_id
+                'id': self.sender_id
             },
             'message': {
                 'text': msg
